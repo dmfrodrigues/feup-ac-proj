@@ -13,10 +13,10 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="retrieve" compatibility="9.10.001" expanded="true" height="68" name="trans_train" width="90" x="112" y="136">
-        <parameter key="repository_entry" value="//Local Repository/data/trans_train"/>
+        <parameter key="repository_entry" value="../data/trans_train"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="9.10.001" expanded="true" height="68" name="loan_train" width="90" x="112" y="238">
-        <parameter key="repository_entry" value="//Local Repository/data/loan_train"/>
+        <parameter key="repository_entry" value="../data/loan_train"/>
       </operator>
       <operator activated="true" class="concurrency:join" compatibility="9.10.001" expanded="true" height="82" name="Join using account_id" width="90" x="313" y="136">
         <parameter key="remove_double_attributes" value="true"/>
@@ -28,7 +28,7 @@
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="9.10.001" expanded="true" height="68" name="account" width="90" x="112" y="340">
-        <parameter key="repository_entry" value="//Local Repository/data/account"/>
+        <parameter key="repository_entry" value="../data/account"/>
       </operator>
       <operator activated="true" class="concurrency:join" compatibility="9.10.001" expanded="true" height="82" name="Join on account_id" width="90" x="447" y="187">
         <parameter key="remove_double_attributes" value="true"/>
@@ -53,6 +53,7 @@
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
     </process>
   </operator>
 </process>

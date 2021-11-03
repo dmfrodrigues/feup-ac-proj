@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.10.001">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.10.001" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="productivity:execute_process" compatibility="9.10.001" expanded="true" height="103" name="Execute TrainDecisionTree" width="90" x="112" y="34">
+        <parameter key="process_location" value="TrainDecisionTree"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.10.001" expanded="true" height="68" name="Execute TestModel" width="90" x="313" y="187">
+        <parameter key="process_location" value="TestModel"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <connect from_op="Execute TrainDecisionTree" from_port="result 1" to_op="Execute TestModel" to_port="input 1"/>
+      <connect from_op="Execute TrainDecisionTree" from_port="result 2" to_port="result 1"/>
+      <connect from_op="Execute TrainDecisionTree" from_port="result 3" to_port="result 2"/>
+      <connect from_op="Execute TestModel" from_port="result 1" to_port="result 3"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <description align="center" color="yellow" colored="false" height="139" resized="false" width="180" x="936" y="300">Selecting loan_id and prediction.&lt;br/&gt;Afterwards, setting the prediction role to a &amp;quot;normal&amp;quot; column. Then Normalizing to a value between 0 and 1</description>
+    </process>
+  </operator>
+</process>
