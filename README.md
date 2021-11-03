@@ -7,7 +7,7 @@
 - **2021/11/03**: Fixed dates from strange format into a simpler, universal format "YYYY-MM-DD"
 
 - **2021/11/03**: Perfect AUC is 1.0, AUC of random classifier is 0.5
-- **2021/11/03**: Decision tree with different criterions:
+- **2021/11/03**: Decision tree with different criterions, using variables [loan_id, status, amount, duration, payments, frequency] (the frequency is the frequency with which account reports are issued):
 
 | Criterion          | AUC   |
 |--------------------|-------|
@@ -30,3 +30,5 @@
             - All the client's accounts scores
             - The data from the district the client lives in
             - The age of the client at the end of the loan (if he/she dies she's likely to default)
+
+- **2021/11/03**: Scores are not so much of a good idea. If the point is to use computational methods to make data science easier, creating the absolute score with fine-tuned parameters by hand defeats that purpose; a bit like finding a neural network's coefficients yourself by hand: it's dumb and machines are more effective at doing that.
