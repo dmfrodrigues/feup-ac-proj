@@ -9,7 +9,6 @@ Therefore it is looking for an instrument that evaluates the risk of non-payment
 
 > Confirmar / perguntar:
 -  acerca do "To test a data mining approach to help the bank managers, it was decided to address two problems, a descriptive and a predictive one. While the descriptive problem was left open, the predictive problem is the prediction of whether a loan will end successfuly." A que é que se refere o 'descriptive problem' que foi deixado em aberto? 
-- é preferível ter falsos positivos a falsos negativos, certo? ou seja, preferir a recusa de empréstimo a quem na realidade cumpriria com as suas obrigações e não o 'contrário'.
 
 ## BU: definition of business goals
 By minimizing the risk of lending money to clients that are likely not to fulfill their obligations the bank will:
