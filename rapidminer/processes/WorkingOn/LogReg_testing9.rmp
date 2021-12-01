@@ -184,7 +184,7 @@
       <operator activated="true" class="blending:rename" compatibility="9.10.001" expanded="true" height="82" name="Rename (2)" width="90" x="1452" y="187">
         <list key="rename attributes">
           <parameter key="loan_id" value="Id"/>
-          <parameter key="confidence(False)" value="Predicted"/>
+          <parameter key="confidence(True)" value="Predicted"/>
         </list>
         <parameter key="from_attribute" value=""/>
         <parameter key="to_attribute" value=""/>
@@ -204,7 +204,7 @@
         <parameter key="include_special_attributes" value="true"/>
       </operator>
       <operator activated="true" class="write_csv" compatibility="9.10.001" expanded="true" height="82" name="Write CSV" width="90" x="1787" y="187">
-        <parameter key="csv_file" value="/Users/joaosousa/Documents/GitHub/feup-ac-proj1/rapidminer/outputs/LogReg_testing9.csv"/>
+        <parameter key="csv_file" value="/Users/joaosousa/Documents/GitHub/feup-ac-proj1/rapidminer/outputs/LogReg_testing9_corrected.csv"/>
         <parameter key="column_separator" value=","/>
         <parameter key="write_attribute_names" value="true"/>
         <parameter key="quote_nominal_values" value="true"/>
