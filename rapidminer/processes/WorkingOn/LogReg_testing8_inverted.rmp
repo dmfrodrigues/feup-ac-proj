@@ -13,7 +13,7 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="retrieve" compatibility="9.10.001" expanded="true" height="68" name="Retrieve complete_join" width="90" x="45" y="85">
-        <parameter key="repository_entry" value="//GitRepo/rapidminer/data/complete_join"/>
+        <parameter key="repository_entry" value="//GitRepo/rapidminer/data/old/complete_join"/>
       </operator>
       <operator activated="true" class="set_role" compatibility="9.10.001" expanded="true" height="82" name="Set Role" width="90" x="179" y="85">
         <parameter key="attribute_name" value="new status"/>
@@ -53,7 +53,7 @@
         <parameter key="include_special_attributes" value="false"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="9.10.001" expanded="true" height="68" name="Retrieve complete_join_comp_loan_id" width="90" x="45" y="340">
-        <parameter key="repository_entry" value="../../data/complete_join_comp_loan_id"/>
+        <parameter key="repository_entry" value="../../data/old/complete_join_comp_loan_id"/>
       </operator>
       <operator activated="false" class="retrieve" compatibility="9.10.001" expanded="true" height="68" name="Retrieve complete_join_dev_loan_id" width="90" x="112" y="187">
         <parameter key="repository_entry" value="../data/complete_join_dev_loan_id"/>
