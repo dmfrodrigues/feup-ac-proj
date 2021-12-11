@@ -23,7 +23,7 @@ The user requirements, put in a concise way, are:
 
 The positive case is the one where the borrower defaults.
 
-The business is goal, as such, is to design a predictive system that helps the bank to reach the following goals:
+The business goal is to design a predictive system that helps the bank to reach the following goals:
 - Reduce defaulting significantly
   - Assuming we don't give credit to people that we think won't pay off; we simply don't give them credit
   - Reduce defaulting by 75% (force false negatives rate below 25%, or keep true positive rate above 75%)
