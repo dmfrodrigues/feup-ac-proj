@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.10.001">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.10.001" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="9.10.001" expanded="true" height="68" name="Retrieve preprocessed_data" width="90" x="179" y="85">
+        <parameter key="repository_entry" value="../../data/preprocessed_data"/>
+      </operator>
+      <operator activated="true" class="concurrency:cross_validation" compatibility="9.10.001" expanded="true" height="145" name="Cross Validation" width="90" x="514" y="85">
+        <parameter key="split_on_batch_attribute" value="false"/>
+        <parameter key="leave_one_out" value="false"/>
+        <parameter key="number_of_folds" value="6"/>
+        <parameter key="sampling_type" value="automatic"/>
+        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="local_random_seed" value="1992"/>
+        <parameter key="enable_parallel_execution" value="true"/>
+        <process expanded="true">
+          <operator activated="false" class="concurrency:parallel_random_forest" compatibility="9.10.001" expanded="true" height="103" name="Random Forest (2)" width="90" x="447" y="340">
+            <parameter key="number_of_trees" value="150"/>
+            <parameter key="criterion" value="information_gain"/>
+            <parameter key="maximal_depth" value="20"/>
+            <parameter key="apply_pruning" value="true"/>
+            <parameter key="confidence" value="0.1"/>
+            <parameter key="apply_prepruning" value="false"/>
+            <parameter key="minimal_gain" value="0.01"/>
+            <parameter key="minimal_leaf_size" value="2"/>
+            <parameter key="minimal_size_for_split" value="4"/>
+            <parameter key="number_of_prepruning_alternatives" value="3"/>
+            <parameter key="random_splits" value="false"/>
+            <parameter key="guess_subset_ratio" value="true"/>
+            <parameter key="subset_ratio" value="0.2"/>
+            <parameter key="voting_strategy" value="confidence vote"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+            <parameter key="enable_parallel_execution" value="true"/>
+          </operator>
+          <operator activated="false" class="h2o:gradient_boosted_trees" compatibility="9.10.001" expanded="true" height="103" name="Gradient Boosted Trees" width="90" x="447" y="544">
+            <parameter key="number_of_trees" value="50"/>
+            <parameter key="reproducible" value="false"/>
+            <parameter key="maximum_number_of_threads" value="4"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+            <parameter key="maximal_depth" value="5"/>
+            <parameter key="min_rows" value="10.0"/>
+            <parameter key="min_split_improvement" value="1.0E-5"/>
+            <parameter key="number_of_bins" value="10"/>
+            <parameter key="learning_rate" value="0.1"/>
+            <parameter key="sample_rate" value="1.0"/>
+            <parameter key="distribution" value="AUTO"/>
+            <parameter key="early_stopping" value="false"/>
+            <parameter key="stopping_rounds" value="1"/>
+            <parameter key="stopping_metric" value="AUTO"/>
+            <parameter key="stopping_tolerance" value="0.001"/>
+            <list key="monotone_constraints"/>
+            <parameter key="max_runtime_seconds" value="0"/>
+            <list key="expert_parameters"/>
+          </operator>
+          <operator activated="false" class="h2o:deep_learning" compatibility="9.10.001" expanded="true" height="103" name="Deep Learning" width="90" x="447" y="442">
+            <parameter key="activation" value="Rectifier"/>
+            <enumeration key="hidden_layer_sizes">
+              <parameter key="hidden_layer_sizes" value="50"/>
+              <parameter key="hidden_layer_sizes" value="50"/>
+            </enumeration>
+            <enumeration key="hidden_dropout_ratios"/>
+            <parameter key="reproducible_(uses_1_thread)" value="false"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+            <parameter key="epochs" value="20.0"/>
+            <parameter key="compute_variable_importances" value="false"/>
+            <parameter key="train_samples_per_iteration" value="-2"/>
+            <parameter key="adaptive_rate" value="true"/>
+            <parameter key="epsilon" value="1.0E-8"/>
+            <parameter key="rho" value="0.99"/>
+            <parameter key="learning_rate" value="0.005"/>
+            <parameter key="learning_rate_annealing" value="1.0E-6"/>
+            <parameter key="learning_rate_decay" value="1.0"/>
+            <parameter key="momentum_start" value="0.0"/>
+            <parameter key="momentum_ramp" value="1000000.0"/>
+            <parameter key="momentum_stable" value="0.0"/>
+            <parameter key="nesterov_accelerated_gradient" value="true"/>
+            <parameter key="standardize" value="true"/>
+            <parameter key="L1" value="1.0E-5"/>
+            <parameter key="L2" value="0.0"/>
+            <parameter key="max_w2" value="10.0"/>
+            <parameter key="loss_function" value="Automatic"/>
+            <parameter key="distribution_function" value="AUTO"/>
+            <parameter key="early_stopping" value="false"/>
+            <parameter key="stopping_rounds" value="1"/>
+            <parameter key="stopping_metric" value="AUTO"/>
+            <parameter key="stopping_tolerance" value="0.001"/>
+            <parameter key="missing_values_handling" value="MeanImputation"/>
+            <parameter key="max_runtime_seconds" value="0"/>
+            <list key="expert_parameters"/>
+            <list key="expert_parameters_"/>
+          </operator>
+          <operator activated="false" class="neural_net" compatibility="9.10.001" expanded="true" height="82" name="Neural Net (2)" width="90" x="246" y="493">
+            <list key="hidden_layers"/>
+            <parameter key="training_cycles" value="500"/>
+            <parameter key="learning_rate" value="0.3"/>
+            <parameter key="momentum" value="0.3"/>
+            <parameter key="decay" value="false"/>
+            <parameter key="shuffle" value="true"/>
+            <parameter key="normalize" value="true"/>
+            <parameter key="error_epsilon" value="1.0E-4"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+          </operator>
+          <operator activated="false" class="k_nn" compatibility="9.10.001" expanded="true" height="82" name="k-NN (2)" width="90" x="246" y="748">
+            <parameter key="k" value="5"/>
+            <parameter key="weighted_vote" value="true"/>
+            <parameter key="measure_types" value="MixedMeasures"/>
+            <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
+            <parameter key="nominal_measure" value="NominalDistance"/>
+            <parameter key="numerical_measure" value="EuclideanDistance"/>
+            <parameter key="divergence" value="GeneralizedIDivergence"/>
+            <parameter key="kernel_type" value="radial"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_degree" value="3.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+          </operator>
+          <operator activated="false" class="support_vector_machine" compatibility="9.10.001" expanded="true" height="124" name="SVM (2)" width="90" x="447" y="697">
+            <parameter key="kernel_type" value="anova"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_degree" value="1.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+            <parameter key="kernel_cache" value="200"/>
+            <parameter key="C" value="10.0"/>
+            <parameter key="convergence_epsilon" value="0.01"/>
+            <parameter key="max_iterations" value="100000"/>
+            <parameter key="scale" value="true"/>
+            <parameter key="calculate_weights" value="true"/>
+            <parameter key="return_optimization_performance" value="true"/>
+            <parameter key="L_pos" value="1.0"/>
+            <parameter key="L_neg" value="1.0"/>
+            <parameter key="epsilon" value="0.0"/>
+            <parameter key="epsilon_plus" value="0.0"/>
+            <parameter key="epsilon_minus" value="0.0"/>
+            <parameter key="balance_cost" value="false"/>
+            <parameter key="quadratic_loss_pos" value="false"/>
+            <parameter key="quadratic_loss_neg" value="false"/>
+            <parameter key="estimate_performance" value="false"/>
+          </operator>
+          <operator activated="false" class="logistic_regression" compatibility="9.10.001" expanded="true" height="103" name="Logistic Regression (SVM) (2)" width="90" x="246" y="595">
+            <parameter key="kernel_type" value="anova"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_degree" value="2.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+            <parameter key="kernel_cache" value="200"/>
+            <parameter key="C" value="10.0"/>
+            <parameter key="convergence_epsilon" value="0.001"/>
+            <parameter key="max_iterations" value="100000"/>
+            <parameter key="scale" value="true"/>
+            <parameter key="calculate_weights" value="true"/>
+            <parameter key="return_optimization_performance" value="true"/>
+          </operator>
+          <operator activated="false" class="concurrency:parallel_random_forest" compatibility="9.10.001" expanded="true" height="103" name="Random Forest (3)" width="90" x="112" y="289">
+            <parameter key="number_of_trees" value="100"/>
+            <parameter key="criterion" value="gain_ratio"/>
+            <parameter key="maximal_depth" value="10"/>
+            <parameter key="apply_pruning" value="false"/>
+            <parameter key="confidence" value="0.1"/>
+            <parameter key="apply_prepruning" value="false"/>
+            <parameter key="minimal_gain" value="0.01"/>
+            <parameter key="minimal_leaf_size" value="2"/>
+            <parameter key="minimal_size_for_split" value="4"/>
+            <parameter key="number_of_prepruning_alternatives" value="3"/>
+            <parameter key="random_splits" value="false"/>
+            <parameter key="guess_subset_ratio" value="true"/>
+            <parameter key="subset_ratio" value="0.2"/>
+            <parameter key="voting_strategy" value="confidence vote"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+            <parameter key="enable_parallel_execution" value="true"/>
+          </operator>
+          <operator activated="true" class="h2o:logistic_regression" compatibility="9.10.001" expanded="true" height="124" name="Logistic Regression (2)" width="90" x="246" y="34">
+            <parameter key="solver" value="L_BFGS"/>
+            <parameter key="reproducible" value="false"/>
+            <parameter key="maximum_number_of_threads" value="4"/>
+            <parameter key="use_regularization" value="false"/>
+            <parameter key="lambda_search" value="false"/>
+            <parameter key="number_of_lambdas" value="0"/>
+            <parameter key="lambda_min_ratio" value="0.0"/>
+            <parameter key="early_stopping" value="true"/>
+            <parameter key="stopping_rounds" value="3"/>
+            <parameter key="stopping_tolerance" value="0.001"/>
+            <parameter key="standardize" value="true"/>
+            <parameter key="non-negative_coefficients" value="false"/>
+            <parameter key="add_intercept" value="true"/>
+            <parameter key="compute_p-values" value="true"/>
+            <parameter key="remove_collinear_columns" value="true"/>
+            <parameter key="missing_values_handling" value="MeanImputation"/>
+            <parameter key="max_iterations" value="0"/>
+            <parameter key="max_runtime_seconds" value="0"/>
+          </operator>
+          <connect from_port="training set" to_op="Logistic Regression (2)" to_port="training set"/>
+          <connect from_op="Logistic Regression (2)" from_port="model" to_port="model"/>
+          <portSpacing port="source_training set" spacing="0"/>
+          <portSpacing port="sink_model" spacing="0"/>
+          <portSpacing port="sink_through 1" spacing="0"/>
+        </process>
+        <process expanded="true">
+          <operator activated="true" class="apply_model" compatibility="9.10.001" expanded="true" height="82" name="Apply Model (2)" width="90" x="112" y="34">
+            <list key="application_parameters"/>
+            <parameter key="create_view" value="false"/>
+          </operator>
+          <operator activated="true" class="performance_binominal_classification" compatibility="9.10.001" expanded="true" height="82" name="Performance (2)" width="90" x="313" y="34">
+            <parameter key="manually_set_positive_class" value="false"/>
+            <parameter key="main_criterion" value="AUC"/>
+            <parameter key="accuracy" value="false"/>
+            <parameter key="classification_error" value="false"/>
+            <parameter key="kappa" value="false"/>
+            <parameter key="AUC (optimistic)" value="false"/>
+            <parameter key="AUC" value="true"/>
+            <parameter key="AUC (pessimistic)" value="false"/>
+            <parameter key="precision" value="true"/>
+            <parameter key="recall" value="true"/>
+            <parameter key="lift" value="false"/>
+            <parameter key="fallout" value="false"/>
+            <parameter key="f_measure" value="true"/>
+            <parameter key="false_positive" value="false"/>
+            <parameter key="false_negative" value="false"/>
+            <parameter key="true_positive" value="false"/>
+            <parameter key="true_negative" value="false"/>
+            <parameter key="sensitivity" value="true"/>
+            <parameter key="specificity" value="true"/>
+            <parameter key="youden" value="false"/>
+            <parameter key="positive_predictive_value" value="false"/>
+            <parameter key="negative_predictive_value" value="false"/>
+            <parameter key="psep" value="false"/>
+            <parameter key="skip_undefined_labels" value="true"/>
+            <parameter key="use_example_weights" value="true"/>
+          </operator>
+          <connect from_port="model" to_op="Apply Model (2)" to_port="model"/>
+          <connect from_port="test set" to_op="Apply Model (2)" to_port="unlabelled data"/>
+          <connect from_op="Apply Model (2)" from_port="labelled data" to_op="Performance (2)" to_port="labelled data"/>
+          <connect from_op="Performance (2)" from_port="performance" to_port="performance 1"/>
+          <connect from_op="Performance (2)" from_port="example set" to_port="test set results"/>
+          <portSpacing port="source_model" spacing="0"/>
+          <portSpacing port="source_test set" spacing="0"/>
+          <portSpacing port="source_through 1" spacing="0"/>
+          <portSpacing port="sink_test set results" spacing="0"/>
+          <portSpacing port="sink_performance 1" spacing="0"/>
+          <portSpacing port="sink_performance 2" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.10.001" expanded="true" height="68" name="Retrieve test_dataset" width="90" x="179" y="289">
+        <parameter key="repository_entry" value="../../data/test_dataset"/>
+      </operator>
+      <operator activated="true" class="apply_model" compatibility="9.10.001" expanded="true" height="82" name="Apply Model" width="90" x="648" y="289">
+        <list key="application_parameters"/>
+        <parameter key="create_view" value="false"/>
+      </operator>
+      <operator activated="true" class="select_attributes" compatibility="9.10.001" expanded="true" height="82" name="Select Attributes (4)" width="90" x="782" y="340">
+        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value="confidence(-1)|loan_id"/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="attribute_value"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="time"/>
+        <parameter key="block_type" value="attribute_block"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_matrix_row_start"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="true"/>
+      </operator>
+      <operator activated="true" class="blending:rename" compatibility="9.10.001" expanded="true" height="82" name="Rename (2)" width="90" x="916" y="340">
+        <list key="rename attributes">
+          <parameter key="loan_id" value="Id"/>
+          <parameter key="confidence(-1)" value="Predicted"/>
+        </list>
+        <parameter key="from_attribute" value=""/>
+        <parameter key="to_attribute" value=""/>
+      </operator>
+      <operator activated="false" class="compare_rocs" compatibility="9.10.001" expanded="true" height="82" name="Compare ROCs" width="90" x="514" y="442">
+        <parameter key="number_of_folds" value="5"/>
+        <parameter key="split_ratio" value="0.7"/>
+        <parameter key="sampling_type" value="stratified sampling"/>
+        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="local_random_seed" value="1992"/>
+        <parameter key="use_example_weights" value="true"/>
+        <parameter key="roc_bias" value="optimistic"/>
+        <process expanded="true">
+          <operator activated="true" class="concurrency:parallel_random_forest" compatibility="9.10.001" expanded="true" height="103" name="Random Forest" width="90" x="246" y="34">
+            <parameter key="number_of_trees" value="150"/>
+            <parameter key="criterion" value="information_gain"/>
+            <parameter key="maximal_depth" value="20"/>
+            <parameter key="apply_pruning" value="true"/>
+            <parameter key="confidence" value="0.1"/>
+            <parameter key="apply_prepruning" value="false"/>
+            <parameter key="minimal_gain" value="0.01"/>
+            <parameter key="minimal_leaf_size" value="2"/>
+            <parameter key="minimal_size_for_split" value="4"/>
+            <parameter key="number_of_prepruning_alternatives" value="3"/>
+            <parameter key="random_splits" value="false"/>
+            <parameter key="guess_subset_ratio" value="true"/>
+            <parameter key="subset_ratio" value="0.2"/>
+            <parameter key="voting_strategy" value="confidence vote"/>
+            <parameter key="use_local_random_seed" value="false"/>
+            <parameter key="local_random_seed" value="1992"/>
+            <parameter key="enable_parallel_execution" value="true"/>
+          </operator>
+          <operator activated="true" class="h2o:logistic_regression" compatibility="9.10.001" expanded="true" height="124" name="Logistic Regression" width="90" x="246" y="136">
+            <parameter key="solver" value="AUTO"/>
+            <parameter key="reproducible" value="false"/>
+            <parameter key="maximum_number_of_threads" value="4"/>
+            <parameter key="use_regularization" value="false"/>
+            <parameter key="lambda_search" value="false"/>
+            <parameter key="number_of_lambdas" value="0"/>
+            <parameter key="lambda_min_ratio" value="0.0"/>
+            <parameter key="early_stopping" value="true"/>
+            <parameter key="stopping_rounds" value="3"/>
+            <parameter key="stopping_tolerance" value="0.001"/>
+            <parameter key="standardize" value="true"/>
+            <parameter key="non-negative_coefficients" value="false"/>
+            <parameter key="add_intercept" value="true"/>
+            <parameter key="compute_p-values" value="true"/>
+            <parameter key="remove_collinear_columns" value="true"/>
+            <parameter key="missing_values_handling" value="MeanImputation"/>
+            <parameter key="max_iterations" value="0"/>
+            <parameter key="max_runtime_seconds" value="0"/>
+          </operator>
+          <operator activated="true" class="logistic_regression" compatibility="9.10.001" expanded="true" height="103" name="Logistic Regression (SVM)" width="90" x="246" y="289">
+            <parameter key="kernel_type" value="dot"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_degree" value="2.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+            <parameter key="kernel_cache" value="200"/>
+            <parameter key="C" value="1.0"/>
+            <parameter key="convergence_epsilon" value="0.001"/>
+            <parameter key="max_iterations" value="100000"/>
+            <parameter key="scale" value="true"/>
+            <parameter key="calculate_weights" value="true"/>
+            <parameter key="return_optimization_performance" value="true"/>
+          </operator>
+          <operator activated="true" class="support_vector_machine" compatibility="9.10.001" expanded="true" height="124" name="SVM" width="90" x="246" y="442">
+            <parameter key="kernel_type" value="dot"/>
+            <parameter key="kernel_gamma" value="1.0"/>
+            <parameter key="kernel_sigma1" value="1.0"/>
+            <parameter key="kernel_sigma2" value="0.0"/>
+            <parameter key="kernel_sigma3" value="2.0"/>
+            <parameter key="kernel_shift" value="1.0"/>
+            <parameter key="kernel_degree" value="2.0"/>
+            <parameter key="kernel_a" value="1.0"/>
+            <parameter key="kernel_b" value="0.0"/>
+            <parameter key="kernel_cache" value="200"/>
+            <parameter key="C" value="0.0"/>
+            <parameter key="convergence_epsilon" value="0.001"/>
+            <parameter key="max_iterations" value="100000"/>
+            <parameter key="scale" value="true"/>
+            <parameter key="calculate_weights" value="true"/>
+            <parameter key="return_optimization_performance" value="true"/>
+            <parameter key="L_pos" value="1.0"/>
+            <parameter key="L_neg" value="1.0"/>
+            <parameter key="epsilon" value="0.0"/>
+            <parameter key="epsilon_plus" value="0.0"/>
+            <parameter key="epsilon_minus" value="0.0"/>
+            <parameter key="balance_cost" value="false"/>
+            <parameter key="quadratic_loss_pos" value="false"/>
+            <parameter key="quadratic_loss_neg" value="false"/>
+            <parameter key="estimate_performance" value="false"/>
+          </operator>
+          <connect from_port="train 1" to_op="Random Forest" to_port="training set"/>
+          <connect from_port="train 2" to_op="Logistic Regression" to_port="training set"/>
+          <connect from_port="train 3" to_op="Logistic Regression (SVM)" to_port="training set"/>
+          <connect from_port="train 4" to_op="SVM" to_port="training set"/>
+          <connect from_op="Random Forest" from_port="model" to_port="model 1"/>
+          <connect from_op="Logistic Regression" from_port="model" to_port="model 2"/>
+          <connect from_op="Logistic Regression (SVM)" from_port="model" to_port="model 3"/>
+          <connect from_op="SVM" from_port="model" to_port="model 4"/>
+          <portSpacing port="source_train 1" spacing="0"/>
+          <portSpacing port="source_train 2" spacing="0"/>
+          <portSpacing port="source_train 3" spacing="0"/>
+          <portSpacing port="source_train 4" spacing="0"/>
+          <portSpacing port="source_train 5" spacing="0"/>
+          <portSpacing port="sink_model 1" spacing="0"/>
+          <portSpacing port="sink_model 2" spacing="0"/>
+          <portSpacing port="sink_model 3" spacing="0"/>
+          <portSpacing port="sink_model 4" spacing="0"/>
+          <portSpacing port="sink_model 5" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="write_csv" compatibility="9.10.001" expanded="true" height="82" name="Write CSV" width="90" x="1050" y="187">
+        <parameter key="csv_file" value="C:/Users/João António Sousa/Documents/Github/feup-ac-proj1/data/experiment3.csv"/>
+        <parameter key="column_separator" value=","/>
+        <parameter key="write_attribute_names" value="true"/>
+        <parameter key="quote_nominal_values" value="true"/>
+        <parameter key="format_date_attributes" value="true"/>
+        <parameter key="date_format" value="yyyy-MM-dd HH:mm:ss"/>
+        <parameter key="append_to_file" value="false"/>
+        <parameter key="encoding" value="SYSTEM"/>
+      </operator>
+      <connect from_op="Retrieve preprocessed_data" from_port="output" to_op="Cross Validation" to_port="example set"/>
+      <connect from_op="Cross Validation" from_port="model" to_op="Apply Model" to_port="model"/>
+      <connect from_op="Cross Validation" from_port="performance 1" to_port="result 1"/>
+      <connect from_op="Retrieve test_dataset" from_port="output" to_op="Apply Model" to_port="unlabelled data"/>
+      <connect from_op="Apply Model" from_port="labelled data" to_op="Select Attributes (4)" to_port="example set input"/>
+      <connect from_op="Select Attributes (4)" from_port="example set output" to_op="Rename (2)" to_port="example set input"/>
+      <connect from_op="Rename (2)" from_port="example set output" to_op="Write CSV" to_port="input"/>
+      <connect from_op="Write CSV" from_port="through" to_port="result 2"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+    </process>
+  </operator>
+</process>
