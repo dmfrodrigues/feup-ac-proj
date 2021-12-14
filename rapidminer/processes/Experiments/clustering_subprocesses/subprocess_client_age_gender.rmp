@@ -31,7 +31,7 @@
       </operator>
       <operator activated="true" class="generate_attributes" compatibility="9.10.001" expanded="true" height="82" name="Calculate Current Age and Sex Numeric" width="90" x="514" y="34">
         <list key="function_descriptions">
-          <parameter key="birthdate" value="date_diff(birthdate, date_now() ) / (1000*60*60*24*365.25)"/>
+          <parameter key="birthdate" value="date_diff(birthdate, date_parse(&quot;01/01/2000&quot;) ) / (1000*60*60*24*365.25)"/>
           <parameter key="sex" value="if (sex == &quot;M&quot;, 1, 0)"/>
         </list>
         <parameter key="keep_all" value="true"/>
